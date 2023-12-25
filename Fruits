@@ -1,0 +1,636 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("[🎁 GIFT] Blox Fruits | Legend HandlesYT", "BloodTheme")
+
+
+local Tab = Window:NewTab("Main-Features")
+
+local Tab2 = Window:NewTab("Misc-Features")
+
+
+local Tab1 = Window:NewTab("Settings")
+
+
+
+
+
+local Section = Tab:NewSection("Main-Features")
+
+
+local Section1 = Tab2:NewSection("Misc-Features")
+
+local CredSection = Tab1:NewSection("Settings")
+
+Section:NewToggle("Auto Collect Gift Drops", "Must GBe In The Island To Do This!", function(Value)
+  a = Value
+        while a do task.wait(1)
+        pcall(function()
+function fireproximityprompt(ProximityPrompt: ProximityPrompt, Amount: Integer, Skip: Boolean)
+    Fires Proximity prompts.
+--]]
+local function fireproximityprompt(ProximityPrompt: ProximityPrompt, Amount: Integer, Skip: Boolean)
+    assert(ProximityPrompt, "Argument #1 Missing or nil")
+    assert(typeof(ProximityPrompt) == "Instance" and ProximityPrompt:IsA("ProximityPrompt"), "Attempted to fire a Value that is not a ProximityPrompt")
+
+    local HoldDuration = ProximityPrompt.HoldDuration
+    if Skip then
+        ProximityPrompt.HoldDuration = 0
+    end
+
+    for i = 1, Amount or 1 do
+        ProximityPrompt:InputHoldBegin()
+        if Skip then
+            local RunService = game:GetService("RunService")
+            local Start = time()
+            repeat
+                RunService.Heartbeat:Wait(0.1)
+            until time() - Start > HoldDuration
+        end
+        ProximityPrompt:InputHoldEnd()
+    end
+    ProximityPrompt.HoldDuration = HoldDuration
+end
+end)
+end
+end)
+Section:NewButton("Teleport To Gift Area", "Teleport", function(state)
+game:GetService('TweenService'):Create(game:GetService('Players')['LocalPlayer'].Character.HumanoidRootPart, TweenInfo.new(24, Enum.EasingStyle.Linear), {CFrame = CFrame.new(workspace.PresentPad.Position)}):Play()
+end)
+
+Section:NewButton("Server Hop", "Server Hop", function(state)
+local Player = game.Players.LocalPlayer    
+local Http = game:GetService("HttpService")
+local TPS = game:GetService("TeleportService")
+local Api = "https://games.roblox.com/v1/games/"
+
+local _place,_id = game.PlaceId, game.JobId
+-- Asc for lowest player count, Desc for highest player count
+local _servers = Api.._place.."/servers/Public?sortOrder=Asc&limit=10"
+function ListServers(cursor)
+   local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
+   return Http:JSONDecode(Raw)
+end
+
+time_to_wait = 120 --seconds
+
+-- choose a random server and join every 2 minutes
+while wait(time_to_wait) do
+   --freeze player before teleporting to prevent synapse crash?
+   Player.Character.HumanoidRootPart.Anchored = true
+   local Servers = ListServers()
+   local Server = Servers.data[math.random(1,#Servers.data)]
+   TPS:TeleportToPlaceInstance(_place, Server.id, Player)
+end
+end)
+
+CredSection:NewButton("Mobile Keyboard", "Mobile Players", function(state)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+end)
+
+Section:NewToggle("AutoFarm (Nearest Enemies)", "AutoFarm (WORKS GOOD WITH HITBOX)", function(Value)
+  a = Value
+        while a do task.wait()
+        pcall(function()
+      
+local player = game.Players.LocalPlayer
+
+
+wait() -- load character
+
+local char = player.Character
+local char_root = char:FindFirstChild("HumanoidRootPart")
+
+    local nearest_hum = math.huge
+
+    local target_root
+    local target_hum
+
+    for i, v in pairs(workspace.Enemies:GetDescendants()) do
+        local root = v:FindFirstChild("HumanoidRootPart")
+        local hum = v:FindFirstChild("Humanoid")
+
+        if root and hum and v ~= char then
+            local mag = (char_root.Position - root.Position).magnitude
+
+            if mag < 230 and mag < nearest_hum then
+
+                local obstructed = false
+
+                local ray = Ray.new(char_root.Position, (root.Position - char_root.Position).unit * 20)
+
+                local part = workspace:FindPartOnRay(ray, char, false, true)
+
+                if part then
+                    if part.Parent ~= v then
+                        obstructed = true
+                    end
+                end
+
+                if obstructed == false then
+                    nearest_hum = mag
+                    target_root = root
+                    target_hum = hum
+                end
+            end
+        end
+    end
+
+    if target_root and target_hum then
+        nearest_hum = math.huge
+
+        local behind = (target_root.CFrame * CFrame.new(0,0,27)).p -- the behind lol
+
+        char_root.CFrame = CFrame.new(behind)
+
+        target_hum:TakeDamage()
+    end
+    end)
+end
+
+end)
+
+
+Section:NewToggle("Hide NameTag", "Hide Nametag", function(Value)
+ 
+end)
+
+Section:NewToggle("Auto Attack", "Auto Attack", function(state)
+if state then
+_G.loops = false
+while wait(0.3) do
+if _G.loops == false then
+
+local vim = game:GetService'VirtualInputManager'
+local x =  game.Players.LocalPlayer.PlayerGui.Main.Level
+
+vim:SendMouseButtonEvent(x.AbsolutePosition.X+x.AbsoluteSize.X/2,x.AbsolutePosition.Y+50,0,true,x,1)
+vim:SendMouseButtonEvent(x.AbsolutePosition.X+x.AbsoluteSize.X/2,x.AbsolutePosition.Y+50,0,false,x,1)
+end
+end
+else
+
+_G.loops = true
+while wait(0.7) do
+if _G.loops == false then
+
+local vim = game:GetService'VirtualInputManager'
+local x =  game.Players.LocalPlayer.PlayerGui.Main.Level
+
+vim:SendMouseButtonEvent(x.AbsolutePosition.X+x.AbsoluteSize.X/2,x.AbsolutePosition.Y+50,0,true,x,1)
+vim:SendMouseButtonEvent(x.AbsolutePosition.X+x.AbsoluteSize.X/2,x.AbsolutePosition.Y+50,0,false,x,1)
+end
+end
+end
+end)
+
+
+Section:NewToggle("Enemies Hitbox", "Loop Hitbox", function(Value)
+ a = Value
+        while a do task.wait()
+        pcall(function()
+ for i, v in pairs(game.Workspace.Enemies:GetDescendants()) do
+          if v.Name == "HumanoidRootPart" then
+
+                v.Size = Vector3.new(55,55,55)
+                v.Transparency = 0.7
+                 v.Material = "Neon"
+             v.BrickColor = BrickColor.new("Really red")
+                v.CanCollide = true
+        end
+    end    
+ 
+  end)
+             end
+
+end)
+
+
+Section:NewSlider("Hitbox Size", "Size Hitbox", 150, 2, function(s) 
+ for i, v in pairs(game.Workspace.Enemies:GetDescendants()) do
+          if v.Name == "HumanoidRootPart" then
+
+                v.Size = Vector3.new((s),(s),(s))
+                v.Transparency = 0.7
+                 v.Material = "Neon"
+             v.BrickColor = BrickColor.new("Really red")
+                v.CanCollide = true
+        end
+    end    
+ 
+end)
+
+Section:NewColorPicker("Hitbox Color", "Hitbox Color", Color3.fromRGB(0,0,0), function(s)
+   for i, v in pairs(game.Workspace.Enemies:GetDescendants()) do
+          if v.Name == "HumanoidRootPart" then
+
+             v.Color = (s)
+             
+        end
+    end    
+end)
+
+
+Section:NewToggle("Hitbox Transparency", "Transparency Of Hitbox", function(state)
+ if state then
+ for i, v in pairs(game.Workspace.Enemies:GetDescendants()) do
+          if v.Name == "HumanoidRootPart" then
+
+                v.Transparency = 1
+               
+        end
+    end    
+ 
+ else
+ for i, v in pairs(game.Workspace.Enemies:GetDescendants()) do
+          if v.Name == "HumanoidRootPart" then
+
+                v.Transparency = 0.7
+               
+        end
+    end    
+
+ end
+
+end)
+
+Section:NewSlider("Boat Speed", "Change Your Boats Speed", 350, 1, function(s) 
+ for i, v in pairs(game.Workspace.Boats:GetDescendants()) do
+          if v.Name == "VehicleSeat" then
+
+                v.MaxSpeed = (s)
+                v.Torque = 1
+                
+        end
+    end    
+ 
+end)
+
+Section:NewToggle("Fly Boat (Press E, On/Off)", "Press E To Fly", function(Value)
+
+game:GetService('Players').LocalPlayer.Character.Humanoid.Name = "Humanoida"
+repeat wait()
+until game:GetService"Players".LocalPlayer and game:GetService"Players".LocalPlayer.Character and game:GetService"Players".LocalPlayer.Character:findFirstChild("UpperTorso") and game:GetService"Players".LocalPlayer.Character:findFirstChild("Humanoida")
+local mouse = game:GetService"Players".LocalPlayer:GetMouse()
+repeat wait() until mouse
+local plr = game:GetService"Players".LocalPlayer
+local torso = plr.Character.UpperTorso
+local flying = true
+local deb = true
+local ctrl = {f = 0, b = 0, l = 0, r = 0}
+local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+local maxspeed = 100
+local speed = 0
+
+function Fly()
+local bg = Instance.new("BodyGyro", torso)
+bg.P = 9e4
+bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+bg.cframe = torso.CFrame
+local bv = Instance.new("BodyVelocity", torso)
+bv.velocity = Vector3.new(0,0.1,0)
+bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+repeat wait()
+--plr.Character.Humanoida.PlatformStand = true
+if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+speed = speed+.5+(speed/maxspeed)
+if speed > maxspeed then
+speed = maxspeed
+end
+elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+speed = speed-1
+if speed < 0 then
+speed = 0
+end
+end
+if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+bv.velocity = ((game:GetService("Workspace").CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game:GetService("Workspace").CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game:GetService("Workspace").CurrentCamera.CoordinateFrame.p))*speed
+lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+bv.velocity = ((game:GetService("Workspace").CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game:GetService("Workspace").CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game:GetService("Workspace").CurrentCamera.CoordinateFrame.p))*speed
+else
+bv.velocity = Vector3.new(0,0.1,0)
+end
+bg.cframe = game:GetService("Workspace").CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+until not flying
+ctrl = {f = 0, b = 0, l = 0, r = 0}
+lastctrl = {f = 0, b = 0, l = 0, r = 0}
+speed = 0
+bg:Destroy()
+bv:Destroy()
+--plr.Character.Humanoida.PlatformStand = false
+end
+mouse.KeyDown:connect(function(key)
+if key:lower() == "e" then
+if flying then flying = false
+else
+flying = true
+Fly()
+end
+elseif key:lower() == "w" then
+ctrl.f = 1
+elseif key:lower() == "s" then
+ctrl.b = -1
+elseif key:lower() == "a" then
+ctrl.l = -1
+elseif key:lower() == "d" then
+ctrl.r = 1
+end
+end)
+mouse.KeyUp:connect(function(key)
+if key:lower() == "w" then
+ctrl.f = 0
+elseif key:lower() == "s" then
+ctrl.b = 0
+elseif key:lower() == "a" then
+ctrl.l = 0
+elseif key:lower() == "d" then
+ctrl.r = 0
+end
+end)
+Fly()
+end)
+
+Section:NewSlider("Boat TurnSpeed", "Change Your Boats TurnSpeed", 500, 1, function(s) 
+ for i, v in pairs(game.Workspace.Boats:GetDescendants()) do
+          if v.Name == "VehicleSeat" then
+
+                v.Torque = (s)
+                
+        end
+    end    
+ 
+end)
+
+
+Section:NewToggle("Chest Farm", "Chest Farm No ServerHop", function(state)
+ if state then
+_G.d = true
+local function HttpGet(url)
+   return game:GetService("HttpService"):JSONDecode(htgetf(url))
+end
+if tonumber(game.PlaceId) == 2753915549 then
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes")
+local TeleportService = game:GetService("TeleportService")
+while _G.d and wait() do
+   local claimed = 0
+local oh1 = "SetTeam"
+local oh2 = "Marines"
+game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer(oh1, oh2)
+   for i,d in pairs(game:GetService("Workspace"):GetChildren()) do
+    if string.find(d.Name, "Chest") ~= nil then
+    claimed = claimed + 1
+    d.CanCollide = false
+if game.Players.LocalPlayer.Character then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = d.CFrame
+end
+    wait(0.5)
+    end
+   end
+   if claimed == 0 then
+       pcall(function()
+           local d = HttpGet("https://www.roblox.com/games/getgameinstancesjson?placeId=" .. game.PlaceId .. "&startindex=0")
+           local f = HttpGet("https://www.roblox.com/games/getgameinstancesjson?placeId=" .. game.PlaceId .. "&startindex=".. math.random(0,tonumber(d.TotalCollectionSize)))
+           local c = f.Collection[math.random(1,#f.Collection)]
+           game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, c.Guid)
+       end)
+       wait(0.5)
+   end
+end
+end
+
+     else
+_G.d = false
+local function HttpGet(url)
+   return game:GetService("HttpService"):JSONDecode(htgetf(url))
+end
+if tonumber(game.PlaceId) == 2753915549 then
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes")
+local TeleportService = game:GetService("TeleportService")
+while _G.d and wait() do
+   local claimed = 0
+local oh1 = "SetTeam"
+local oh2 = "Marines"
+game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer(oh1, oh2)
+   for i,d in pairs(game:GetService("Workspace"):GetChildren()) do
+    if string.find(d.Name, "Chest") ~= nil then
+    claimed = claimed + 1
+    d.CanCollide = false
+if game.Players.LocalPlayer.Character then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = d.CFrame
+end
+    wait(0.5)
+    end
+   end
+   if claimed == 0 then
+       pcall(function()
+           local d = HttpGet("https://www.roblox.com/games/getgameinstancesjson?placeId=" .. game.PlaceId .. "&startindex=0")
+           local f = HttpGet("https://www.roblox.com/games/getgameinstancesjson?placeId=" .. game.PlaceId .. "&startindex=".. math.random(0,tonumber(d.TotalCollectionSize)))
+           local c = f.Collection[math.random(1,#f.Collection)]
+           game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, c.Guid)
+       end)
+       wait(0.5)
+   end
+end
+end
+ end
+
+end)
+Section:NewButton("Chest Farm (ServerHop)", "ServerHops And Finds Chests", function()
+repeat wait() until game:IsLoaded() wait()
+wait(2)
+local args = {
+    [1] = "SetTeam",
+    [2] = "Pirates"
+}
+
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+wait(1)
+local PlaceID = game.PlaceId
+local AllIDs = {}
+local foundAnything = ""
+local actualHour = os.date("!*t").hour
+local Deleted = false
+local File = pcall(function()
+    AllIDs = game:GetService('HttpService'):JSONDecode(readfile("NotSameServers.json"))
+end)
+if not File then
+    table.insert(AllIDs, actualHour)
+    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+end
+function TPReturner()
+    local Site;
+    if foundAnything == "" then
+        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+    else
+        Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+    end
+    local ID = ""
+    if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+        foundAnything = Site.nextPageCursor
+    end
+    local num = 0;
+    for i,v in pairs(Site.data) do
+        local Possible = true
+        ID = tostring(v.id)
+        if tonumber(v.maxPlayers) > tonumber(v.playing) then
+            for _,Existing in pairs(AllIDs) do
+                if num ~= 0 then
+                    if ID == tostring(Existing) then
+                        Possible = false
+                    end
+                else
+                    if tonumber(actualHour) ~= tonumber(Existing) then
+                        local delFile = pcall(function()
+                            delfile("NotSameServers.json")
+                            AllIDs = {}
+                            table.insert(AllIDs, actualHour)
+                        end)
+                    end
+                end
+                num = num + 1
+            end
+            if Possible == true then
+                table.insert(AllIDs, ID)
+                wait()
+                pcall(function()
+                    writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                    wait()
+                    game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                end)
+                wait(4)
+            end
+        end
+    end
+end
+
+function Teleport()
+    while wait() do
+        pcall(function()
+            TPReturner()
+            if foundAnything ~= "" then
+                TPReturner()
+            end
+        end)
+    end
+end
+spawn(function()
+   while wait (0.3) do
+       pcall(function()
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "Chest1" or v.Name == "Chest2" or v.Name == "Chest3" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Position)
+wait(.16)
+end end end) end end)
+wait(6.6)
+Teleport()
+
+end)
+
+
+Section1:NewButton("CFrame Speed (Z)", "CFrame Speed (Press Z)", function()
+ repeat
+		wait()
+	until game:IsLoaded()
+	local L_134_ = game:service('Players')
+	local L_135_ = L_134_.LocalPlayer
+	repeat
+		wait()
+	until L_135_.Character
+	local L_136_ = game:service('UserInputService')
+	local L_137_ = game:service('RunService')
+	getgenv().Multiplier = 0.5
+	local L_138_ = true
+	local L_139_
+	L_136_.InputBegan:connect(function(L_140_arg0)
+		if L_140_arg0.KeyCode == Enum.KeyCode.LeftBracket then
+			Multiplier = Multiplier + 0.01
+			print(Multiplier)
+			wait(0.2)
+			while L_136_:IsKeyDown(Enum.KeyCode.LeftBracket) do
+				wait()
+				Multiplier = Multiplier + 0.01
+				print(Multiplier)
+			end
+		end
+		if L_140_arg0.KeyCode == Enum.KeyCode.RightBracket then
+			Multiplier = Multiplier - 0.01
+			print(Multiplier)
+			wait(0.2)
+			while L_136_:IsKeyDown(Enum.KeyCode.RightBracket) do
+				wait()
+				Multiplier = Multiplier - 0.01
+				print(Multiplier)
+			end
+		end
+		if L_140_arg0.KeyCode == Enum.KeyCode.Z then
+			L_138_ = not L_138_
+			if L_138_ == true then
+				repeat
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Multiplier
+					game:GetService("RunService").Stepped:wait()
+				until L_138_ == false
+			end
+		end
+	end)
+end)
+
+Section1:NewSlider("CFrame Speed", "CFrame Speed", 5, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+ getgenv().Multiplier = s
+end)
+
+Section1:NewToggle("Infinite Jump", "Infinite Jump", function(state)
+
+ if state then
+_G.infinjump = true
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+Mouse.KeyDown:connect(function(k)
+if _G.infinjump then
+if k:byte() == 32 then
+Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+Humanoid:ChangeState("Jumping")
+wait(0.1)
+Humanoid:ChangeState("Seated")
+end
+end
+end)
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+    else
+if _G.infinjump == true then
+_G.infinjump = false
+else
+_G.infinjump = true
+end
+end
+            end)
+Section1:NewButton("FPS Booster", "FPS Booster", function()
+
+     for _,v in pairs(workspace:GetDescendants()) do
+if v.ClassName == "Part"
+or v.ClassName == "SpawnLocation"
+or v.ClassName == "WedgePart"
+or v.ClassName == "Terrain"
+or v.ClassName == "MeshPart" then
+v.Material = "Plastic"
+end
+end
+end)
+
+
+
+Section1:NewSlider("FOV", "Field Of Views", 120, 70, function(s) -- 500 (MaxValue) | 0 (MinValue)
+game:GetService'Workspace'.Camera.FieldOfView = (s)
+end)
+
+CredSection:NewLabel("Made By Legend HandlesYT")
+
+
+CredSection:NewKeybind("Toggle UI", "Toggle The UI", Enum.KeyCode.L, function()
+	Library:ToggleUI()
+end)
+
+
+CredSection:NewButton("Mobile Keyboard", "Mobile Players", function(state)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+end)
