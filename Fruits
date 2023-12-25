@@ -53,11 +53,11 @@ end
 end)
 end
 end)
-Section:NewButton("Teleport To Gift Area", "Teleport", function(state)
+Section:NewButton("Teleport To Gift Area", "Teleport", function()
 game:GetService('TweenService'):Create(game:GetService('Players')['LocalPlayer'].Character.HumanoidRootPart, TweenInfo.new(24, Enum.EasingStyle.Linear), {CFrame = CFrame.new(workspace.PresentPad.Position)}):Play()
 end)
 
-Section:NewButton("Server Hop", "Server Hop", function(state)
+Section:NewButton("Server Hop", "Server Hop", function()
 local Player = game.Players.LocalPlayer    
 local Http = game:GetService("HttpService")
 local TPS = game:GetService("TeleportService")
@@ -81,10 +81,6 @@ while wait(time_to_wait) do
    local Server = Servers.data[math.random(1,#Servers.data)]
    TPS:TeleportToPlaceInstance(_place, Server.id, Player)
 end
-end)
-
-CredSection:NewButton("Mobile Keyboard", "Mobile Players", function(state)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
 end)
 
 Section:NewToggle("AutoFarm (Nearest Enemies)", "AutoFarm (WORKS GOOD WITH HITBOX)", function(Value)
